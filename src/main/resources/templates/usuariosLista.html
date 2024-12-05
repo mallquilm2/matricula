@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <title>Mantenimiento de usuarios</title>
+    </head>
+    <body>
+        
+        <h1>Listado usuarios</h1>
+        <br/>
+        <div class="table-responsive">
+            <table class="table table-responsive table-sm table-dark table-striped table-bordered table-hover">
+            <thead>
+                <tr class="info">
+                    <th>Usuario</th>
+                    <th>Clave</th>
+                    <th>Nombre Completo</th>
+                    <th>Foto</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user:${lista}">
+                    <td th:text="${user.usuario}"></td>
+                    <td th:text="${user.clave}"></td>
+                    <td th:text="${user.nombreCompleto}"></td>
+                    <td><a th:href="@{'fotoMostar?codigoUsuario='+${user.usuario}}">foto</a></td>
+                    <td><a th:href="@{'usuarioMod?codigoUsuario='+${user.usuario}}">Modificar</a></td>
+                    <td><a th:href="@{'usuarioEli?codigoUsuario='+${user.usuario}}">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+            <a th:href="@{'usuarioCrear'}" class="btn btn-primary btn-lg active">Crear usuario</a>
+    </body>
+</html>

@@ -6,6 +6,7 @@ package edu.cibertec.matricula.service;
 
 import edu.cibertec.matricula.dao.UsuarioDAO;
 import edu.cibertec.matricula.dao.entity.UsuarioEntity;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,18 @@ public class UsuarioService {
         
         return rpta;
         
+    }
+    
+    public List<UsuarioEntity> getListaUsuarios(){
+        return usuarioDao.findAll();
+    }
+    
+    public void insertarUsuario(UsuarioEntity usuario){
+        usuarioDao.save(usuario);
+    }
+    
+    public void eliminarUsuario(String codigo){
+        usuarioDao.deleteById(codigo);
     }
     
 }
