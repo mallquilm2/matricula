@@ -8,6 +8,8 @@ import edu.cibertec.matricula.dao.entity.UsuarioEntity;
 import edu.cibertec.matricula.service.UsuarioService;
 import java.io.IOException;
 import javax.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +27,8 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
     
+    Logger logger = LoggerFactory.getLogger(UsuarioController.class);
+    
     @RequestMapping("/")
     public String loginMostrar(){
         return "login";
@@ -37,6 +41,7 @@ public class UsuarioController {
         UsuarioEntity user = usuarioService.validarLogin(usuarioValida);
         if(user == null){
             mv = new ModelAndView("login", "msgError", "Usuario y/o clave incorrecto.");
+            logger.warn("Usuario y/o clave incorrecto.");
             
         }else{
            mv = new ModelAndView("menu", "usuario", user);
@@ -59,9 +64,11 @@ public class UsuarioController {
         
         if(result.hasErrors()){
             mv = new ModelAndView("usuarioDatos","usuarioBean",usuario);
+            logger.warn("Datos ingresados incorrectos");
         }else{
             usuario.setFoto(archivo.getBytes());
             usuarioService.insertarUsuario(usuario);
+            logger.info("Se registró correctamente el usuario");
             mv = new ModelAndView("usuariosLista", "lista", usuarioService.getListaUsuarios());
         }
         return mv;
