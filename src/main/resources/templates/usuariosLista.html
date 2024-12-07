@@ -5,6 +5,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script>
+            function modalEliminar(id, nombre){
+                $("#msgEliminar").text("Seguro de eliminar el usuario "+nombre+"?");
+                $("#btnEliminar").on("click", function(){
+                    window.location = "usuarioEli?codigoUsuario="+id;
+                });
+                $("#deleteModal").modal("show");
+            }
+        </script>
         <title>Mantenimiento de usuarios</title>
     </head>
     <body>
@@ -30,11 +39,30 @@
                     <td th:text="${user.nombreCompleto}"></td>
                     <td><a th:href="@{'fotoMostar?codigoUsuario='+${user.usuario}}">foto</a></td>
                     <td><a th:href="@{'usuarioMod?codigoUsuario='+${user.usuario}}">Modificar</a></td>
-                    <td><a th:href="@{'usuarioEli?codigoUsuario='+${user.usuario}}">Eliminar</a></td>
+                    <td><a th:attr="onclick='modalEliminar(\''+ ${user.usuario} + '\',\''+${user.nombreCompleto} + '\')'">Eliminar</a></td>
+                    
                 </tr>
             </tbody>
         </table>
         </div>
             <a th:href="@{'usuarioCrear'}" class="btn btn-primary btn-lg active">Crear usuario</a>
+            
+            <div class="modal modal-warning fade in" th:id="deleteModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Usuario</h5>
+                        </div>
+                        <div class="modal-body">
+                            <h3 id="msgEliminar"></h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">NO</button>
+                            <a type="button" class="btn btn-outline" id="btnEliminar">SI</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
     </body>
 </html>
