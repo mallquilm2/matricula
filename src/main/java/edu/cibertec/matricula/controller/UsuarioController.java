@@ -31,7 +31,8 @@ public class UsuarioController {
     
     @RequestMapping("/")
     public String loginMostrar(){
-        return "login";
+        //return "login";
+        return "menu";
     }
     
     @RequestMapping("loginAccion")
