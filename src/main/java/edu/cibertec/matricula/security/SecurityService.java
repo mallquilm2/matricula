@@ -26,9 +26,9 @@ public class SecurityService implements UserDetailsService{
         UsuarioEntity ue = usuarioDao.findById(username).get();
         
         List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ADMIN"));
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
         
-        UserDetails udet = new User(ue.getUsuario(), "{noop}"+ue.getClave(), roles);
+        UserDetails udet = new User(ue.getUsuario(), ue.getClave(), roles);
         return udet;
     }
     

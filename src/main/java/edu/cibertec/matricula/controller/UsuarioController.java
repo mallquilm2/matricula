@@ -29,26 +29,16 @@ public class UsuarioController {
     
     Logger logger = LoggerFactory.getLogger(UsuarioController.class);
     
-    @RequestMapping("/")
+    @RequestMapping("/login")
     public String loginMostrar(){
-        //return "login";
+        return "login";
+    }
+    
+    @RequestMapping("/menu")
+    public String menuMostrar(){
         return "menu";
     }
     
-    @RequestMapping("loginAccion")
-    public ModelAndView loginAccion(UsuarioEntity usuarioValida){
-        ModelAndView mv = null;
-        
-        UsuarioEntity user = usuarioService.validarLogin(usuarioValida);
-        if(user == null){
-            mv = new ModelAndView("login", "msgError", "Usuario y/o clave incorrecto.");
-            logger.warn("Usuario y/o clave incorrecto.");
-            
-        }else{
-           mv = new ModelAndView("menu", "usuario", user);
-        }
-        return mv;
-    }
     
     @RequestMapping("usuarioCrear")
     public ModelAndView crearUsuario(){
