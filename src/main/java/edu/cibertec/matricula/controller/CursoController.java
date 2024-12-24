@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CursoController {
     
-    
     @Autowired
     private CursoService cursoService;
     
