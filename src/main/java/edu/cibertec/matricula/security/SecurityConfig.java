@@ -72,6 +72,8 @@ public class SecurityConfig{
         return http.build();
     }
     */
+    
+    /*
     @Bean
     public SecurityFilterChain filterChainJwt(HttpSecurity http)throws Exception{
         http.csrf().disable()
@@ -82,6 +84,19 @@ public class SecurityConfig{
                 .addFilterBefore(new LoginFilter("/login", authenticationManagerConfig(
                         http.getSharedObject(AuthenticationConfiguration.class))), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
+*/
+    
+    @Bean
+    public SecurityFilterChain filterChainOAuth2(HttpSecurity http)throws Exception{
+        http.csrf().disable()
+                .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/","/login").permitAll()
+                .anyRequest().authenticated())
+                .oauth2Login(oauth2 -> oauth2
+                .loginPage("/login")
+                .defaultSuccessUrl("/menu",true));
         return http.build();
     }
     

@@ -7,10 +7,13 @@ package edu.cibertec.matricula.controller;
 import edu.cibertec.matricula.dao.entity.UsuarioEntity;
 import edu.cibertec.matricula.service.UsuarioService;
 import java.io.IOException;
+import java.util.Map;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -35,8 +38,9 @@ public class UsuarioController {
     }
     
     @RequestMapping("/menu")
-    public String menuMostrar(){
-        return "menu";
+    public ModelAndView menuMostrar(@AuthenticationPrincipal OAuth2User oAuth2User){
+        Map<String,Object> attributes = oAuth2User.getAttributes();
+        return new ModelAndView("menu","usuario",attributes.get("name"));
     }
     
     
